@@ -10,3 +10,27 @@
 
 ## Project Proposal
 
+We obtained electricty cuts data in Turkey between 2012 and 2018 from the [Energy Transparency Platform](https://seffaflik.epias.com.tr/transparency/index.xhtml). Data contain 51568 rows and 7 variables. Variables are as follows:
+
+```{r}
+Santral İsmi: Name of the power plant.
+Uzlaştırmaya Esas Veriş Çekiş Birimi (UEVÇB): Registered energy supplier name.
+Olay başlangıç tarihi: Start date time of the cut.
+Olay bitiş tarihi: End date/time of the cut.
+İşletmedeki kurulu güç: Total power at the plant.
+Olay sırasındaki kapasite: Capacity at the time of incident
+Gerekçe: Reason of the cut
+```
+
+## Learning Objectives
+- Cleaning dirty data and doing text mining in order to extract insights.
+- Visualizing data according to different variables.
+- Visualizing geographical data over the map.
+
+## Analysis Objectives
+- Finding longest and shortest cuts and visualizing them.
+- Visualizing cuts at the power plants according to city and duration.
+- Finding top reasons of electricity cuts with tidy text mining.
+- Analyzing cuts vis-a-vis to capacity and total power at the power plant.
+
+Our initial analysis can be found [here]().
