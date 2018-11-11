@@ -12,6 +12,8 @@ library(readxl)
 library(forcats)
 library(scales)
 library(knitr)
+library(lubridate)
+library(RColorBrewer)
 ```
 
 ## R Markdown
@@ -52,6 +54,16 @@ cuts$Olay.Başlangıç.Tarihi <- dmy_hm(cuts$Olay.Başlangıç.Tarihi)
 cuts$Olay.Bitiş.Tarihi <- dmy_hm(cuts$Olay.Bitiş.Tarihi)
 
 # Looks like data is until beginning of the 2018 and we have between 10-12K cuts per year between 2014 and 2017.
-cuts %>% group_by(year=floor_date(Olay.Başlangıç.Tarihi,"year")) %>% summarize(Olay.Başlangıç.Tarihi=n())
+yearly_cuts <- cuts %>% group_by(year=floor_date(Olay.Başlangıç.Tarihi,"year")) %>% summarize(Olay.Başlangıç.Tarihi=n())
+yearly_cuts
 ```
 
+```{r Plot}
+# Let's put the yearly cuts into a bar graph.
+ggplot(data=yearly_cuts, aes(y=Olay.Başlangıç.Tarihi, x=factor(year(year)), fill=factor(year(year))))+
+  geom_bar(stat="identity")+
+  labs(x="Year", y="Incident Count", title="Yearly Total Incidents")+
+  theme_light()+
+  scale_fill_brewer(palette="PuBuGn")+
+  theme(legend.position="none")
+```
