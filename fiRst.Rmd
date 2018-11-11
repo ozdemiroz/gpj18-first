@@ -1,0 +1,57 @@
+---
+title: "InitialAnalysis"
+author: "Efehan Danışman"
+date: "11 Kasım 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE,eval=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(forcats)
+library(scales)
+library(knitr)
+```
+
+## R Markdown
+
+We obtained electricty cuts data in Turkey between 2012 and 2018 from the Energy Transparency Platform. Data contain 51630 rows and 7 variables.
+
+Objectives of this project is as follows:
+
+# Learning Objectives
+* Cleaning dirty data and doing text mining in order to extract insights.
+* Visualizing data according to different variables.
+* Visualizing geographical data over the map.
+
+# Analysis Objectives
+* Finding longest and shortest cuts and visualizing them.
+* Visualizing cuts at the power plants according to city and duration.
+* Finding top reasons of electricity cuts with tidy text mining.
+* Analyzing cuts vis-a-vis to capacity and total power at the power plant.
+
+```{r Getting the Data}
+# Create a temporary file
+tmp<-tempfile(fileext=".csv")
+
+# Download file from repository to the temp file
+download.file("https://github.com/MEF-BDA503/gpj18-first/blob/master/dataset_candidates/ArizaBakim-01012008-01012018.csv?raw=true",destfile=tmp)
+
+```
+
+```{r Initial Cleaning and Analysis}
+# Reading data. Encoding as Latin-1 is crucial in order to see Turkish characters properly.
+cuts<-read.csv(tmp, encoding= "Latin-1")
+
+# Checking what we have as data.
+str(cuts)
+
+# Change type of time and date
+cuts$Olay.Başlangıç.Tarihi <- dmy_hm(cuts$Olay.Başlangıç.Tarihi)
+cuts$Olay.Bitiş.Tarihi <- dmy_hm(cuts$Olay.Bitiş.Tarihi)
+
+# Looks like data is until beginning of the 2018 and we have between 10-12K cuts per year between 2014 and 2017.
+cuts %>% group_by(year=floor_date(Olay.Başlangıç.Tarihi,"year")) %>% summarize(Olay.Başlangıç.Tarihi=n())
+```
+
