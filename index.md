@@ -33,4 +33,4 @@ Gerekçe: Reason of the cut
 - Finding top reasons of electricity cuts with tidy text mining.
 - Analyzing cuts vis-a-vis to capacity and total power at the power plant.
 
-Our initial analysis can be found [here](\first.html).
+Our initial analysis can be found [here](https://github.com/MEF-BDA503/gpj18-first/blob/master/fiRst.html).
